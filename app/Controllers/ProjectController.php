@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\Project;
 use CodeIgniter\HTTP\ResponseInterface;
 use DateTime;
 
@@ -21,7 +22,9 @@ class ProjectController extends BaseController
 
     public function create(): string
     {
-        return view('project/create');
+        $referenceModel = new \App\Models\Reference();
+        $data['references'] = $referenceModel->findAll();
+        return view('project/create', $data);
     }
 
     /**
@@ -57,6 +60,19 @@ class ProjectController extends BaseController
         $projectModel = new \App\Models\Project();
         $projectModel->save($this->getPostData());
 
+        $projectId = $projectModel->insertID();
+
+        $projectReferenceModel = new \App\Models\ProjectReference();
+        foreach ($this->request->getPost('references') as $referenceId) {
+            $projectReferenceModel->save([
+                'project_id' => $projectId,
+                'reference_id' => $referenceId
+            ]);
+        }
+
+        // Add activity log
+        $activityLogger = new \App\Models\ActivityLogger();
+        $activityLogger->logActivity(session()->get('username'), 'Project', 'Create', 'Created a new project with ID: ' . $projectId);
 
         return redirect()->to('/project');
     }
@@ -65,6 +81,13 @@ class ProjectController extends BaseController
     {
         $projectModel = new \App\Models\Project();
         $data['project'] = $projectModel->find($id);
+
+        $referenceModel = new \App\Models\Reference();
+        $data['references'] = $referenceModel->findAll();
+
+        $projectReferenceModel = new \App\Models\ProjectReference();
+        $data['selectedReferences'] = $projectReferenceModel->where('project_id', $id)->findAll();
+
         return view('project/edit', $data);
     }
 
@@ -101,6 +124,19 @@ class ProjectController extends BaseController
         $projectModel = new \App\Models\Project();
         $projectModel->update($id, $this->getPostData());
 
+        $projectReferenceModel = new \App\Models\ProjectReference();
+        $projectReferenceModel->where('project_id', $id)->delete();
+
+        foreach ($this->request->getPost('references') as $referenceId) {
+            $projectReferenceModel->save([
+                'project_id' => $id,
+                'reference_id' => $referenceId
+            ]);
+        }
+        // Add activity log
+        $activityLogger = new \App\Models\ActivityLogger();
+        $activityLogger->logActivity(session()->get('username'), 'Project', 'Update', 'Updated project with ID: ' . $id);
+
         return $this->response->setJSON(['success' => true]);
     }
 
@@ -131,8 +167,15 @@ class ProjectController extends BaseController
     public function destroy(int $id)
     {
         $projectModel = new \App\Models\Project();
+        $projectReferenceModel = new \App\Models\ProjectReference();
+        $projectReferenceModel->where('project_id', $id)->delete();
         $projectModel->delete($id);
-        return $this->response->setJSON(['success' => true, 'message' => 'Project deleted successfully']);
+
+        // Add activity log
+        $activityLogger = new \App\Models\ActivityLogger();
+        $activityLogger->logActivity(session()->get('username'), 'Project', 'Delete', 'Deleted project with ID: ' . $id);
+
+        return $this->response->setJSON(['success' => true, 'message' => 'Project and associated references deleted successfully']);
     }
 
 

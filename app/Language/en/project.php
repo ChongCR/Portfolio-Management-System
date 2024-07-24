@@ -12,6 +12,7 @@ return [
         'technologies' => 'Technologies',
         'team_size' => 'Team Size',
         'collaborators' => 'Collaborators',
+        'references' => 'References',
         'repository_link' => 'Repository Link',
         'live_demo_link' => 'Live Demo Link',
         'documentation_link' => 'Documentation Link',

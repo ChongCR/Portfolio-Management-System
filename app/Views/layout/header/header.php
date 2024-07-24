@@ -157,8 +157,10 @@ $assets = config('Pages');
     <div class="sidebar">
 
         <div class="sidebar-logo">
-            <img src="<?= base_url('assets/images/sidebar_logo.png') ?>" alt="My Image">
-            <span>Rock CodeIgniter</span>
+            <a href="/dashboard" style="text-decoration: none;">
+                <img src="<?= base_url('assets/images/sidebar_logo.png') ?>" alt="My Image">
+                <span>Rock CodeIgniter</span>
+            </a>
         </div>
         <ul>
             <?php foreach ($menuItems as $item): ?>

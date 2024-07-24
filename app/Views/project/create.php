@@ -51,6 +51,19 @@
                         <input class="form-control" id="collaborators" name="collaborators" required></input>
                     </div>
                 </div>
+
+                <div class="form-group mt-2">
+                    <label for="references"><?= lang('project.label.references'); ?></label>
+                    <?php foreach ($references as $reference): ?>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="<?= $reference['id'] ?>" id="reference-<?= $reference['id'] ?>" name="references[]">
+                            <label class="form-check-label" for="reference-<?= $reference['id'] ?>">
+                                <?= $reference['name'] ?> (<?= $reference['email'] ?>)
+                            </label>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+
                 <div class="form-group mt-2">
                     <label for="repository_link"><?= lang('project.label.repository_link'); ?></label>
                     <input type="url" class="form-control" id="repository_link" name="repository_link">
@@ -99,7 +112,16 @@
                                 confirmButtonColor: "#343A40",
                             });
                         } else {
-                            window.location.href = '/project';
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: 'Project created successfully',
+                                confirmButtonColor: "#343A40",
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = '/project';
+                                }
+                            });
                         }
                     }
                 });
