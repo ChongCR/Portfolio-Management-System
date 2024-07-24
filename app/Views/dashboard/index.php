@@ -22,7 +22,7 @@
                 preview the pages after configuring the systems.</p>
 
 
-            <a href="<?= base_url('project') ?>" class="btn btn-primary">Preview</a>
+            <a href="<?= base_url('/preview') ?>" class="btn btn-primary">Preview</a>
         </div>
     </div>
 

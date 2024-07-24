@@ -22,7 +22,7 @@ $routes->get('/project/edit/(:num)', [\App\Controllers\ProjectController::class,
 $routes->post('/project/update/(:num)', [\App\Controllers\ProjectController::class, 'update/$1']);
 $routes->delete('/project/destroy/(:num)', [\App\Controllers\ProjectController::class, 'destroy/$1']);
 
-//annoucement
+//announcement
 $routes->get('/annoucement', [\App\Controllers\AnnoucementController::class, 'index']);
 $routes->get('/annoucement/create', [\App\Controllers\AnnoucementController::class, 'create']);
 $routes->post('/annoucement/store', [\App\Controllers\AnnoucementController::class, 'store']);
@@ -37,12 +37,14 @@ $routes->get('/reference/edit/(:num)', [\App\Controllers\ReferenceController::cl
 $routes->post('/reference/update/(:num)', [\App\Controllers\ReferenceController::class, 'update/$1']);
 $routes->delete('/reference/destroy/(:num)', [\App\Controllers\ReferenceController::class, 'destroy/$1']);
 
-
 //logs
 $routes->get('/logs', [\App\Controllers\LogActivityController::class, 'index']);
+
 //settings
 $routes->get('/settings', [\App\Controllers\SettingController::class, 'index']);
 
+//preview
+$routes->get('/preview', [\App\Controllers\PreviewController::class, 'index']);
 
 
 
