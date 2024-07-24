@@ -33,10 +33,46 @@ $assets = config('Pages');
     ?>
 
     <style>
+
+
+        body{
+            overflow-x: hidden;
+        }
+
+        label.required::after {
+            content: " *";
+            color: red;
+        }
+
+        .tagify {
+            --tag-pad: 0.2rem 0.5rem;
+        }
+
         html {
             display: flex;
             flex-direction: row;
             background-color: #F5F8FA;
+        }
+
+        .white-background-card{
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .card-container{
+            position: absolute;
+            top:50px;
+            left:450px;
+            width: 70vw;
+            min-width: 1400px;
+            border-radius: 2rem;
+            background-color: #F2F3F5;
+            border:none;
+            padding:20px;
+            box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
         }
 
         .sidebar {
@@ -45,16 +81,16 @@ $assets = config('Pages');
             top: 50px;
             bottom: 50px;
             z-index: 100;
-            overflow: hidden;
             border-radius: 2rem;
             background-color: #F2F3F5;
             box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
             display: flex;
             justify-content: start;
-            align-items: start;
             flex-direction: column;
             padding: 20px;
             transition: 0.5s;
+            min-height: fit-content;
+            height: 100%;
         }
 
         .sidebar-logo {
@@ -69,6 +105,7 @@ $assets = config('Pages');
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
             border-radius: 20px;
             margin-bottom: 20px;
+
             img {
                 width: 100px;
                 height: 100px;
@@ -109,12 +146,13 @@ $assets = config('Pages');
             }
 
         }
+
         .sidebar ul li a i {
             margin-right: 10px;
         }
     </style>
 </head>
-<body>
+<header>
 
     <div class="sidebar">
 
@@ -135,3 +173,10 @@ $assets = config('Pages');
 
 
     </div>
+
+</header>
+
+
+<div class="container mt-5">
+<div class="card card-container">
+
