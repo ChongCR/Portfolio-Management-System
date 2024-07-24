@@ -14,6 +14,10 @@ $routes->get('/logout', [\App\Controllers\Auth::class, 'logout']);
 $routes->get('/dashboard', [\App\Controllers\Home::class, 'index']);
 
 
+//personal infomation
+$routes->get('/personal-information', [\App\Controllers\PersonalInformationController::class, 'index']);
+$routes->post('/personal-information/store', [\App\Controllers\PersonalInformationController::class, 'store']);
+$routes->post('/personal-information/update/(:num)', [\App\Controllers\PersonalInformationController::class, 'update/$1']);
 //project
 $routes->get('/project', [\App\Controllers\ProjectController::class, 'index']);
 $routes->get('/project/create', [\App\Controllers\ProjectController::class, 'create']);

@@ -31,6 +31,17 @@ $assets = config('Pages');
         }
 
 
+        body{
+            overflow-x: hidden;
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background: #333;
+            background-image: linear-gradient(to right, #ccc, #333, #ccc);
+        }
+
+
         .svg-line {
             padding-left: 150px;
         }
@@ -38,6 +49,7 @@ $assets = config('Pages');
         .section-title {
             font-size: 1.5rem;
             font-weight: bold;
+            color: #A7A7A7;
         }
 
         .announcement-container {
@@ -164,7 +176,7 @@ $assets = config('Pages');
                         font-size: 1rem;
                         color: #343a40;
                         line-height: 170%;
-
+                        word-break: break-all;
                     }
 
                     .project_info {
@@ -192,6 +204,7 @@ $assets = config('Pages');
                         font-size: 1rem;
                         color: #343a40;
                         line-height: 170%;
+                        word-break: break-all;
                     }
                 }
 
@@ -213,6 +226,15 @@ $assets = config('Pages');
                     .references {
                         width: 33.333%;
 
+                    }
+                }
+
+
+                .repo-live-documentation-link{
+                    padding: 25px 0 0;
+
+                    div{
+                        margin-top: 10px;
                     }
                 }
             }
@@ -246,8 +268,6 @@ $assets = config('Pages');
                 <ul>
                     <li class="active"><a href="#about">About</a></li>
                     <li><a href="#experiences">Experiences</a></li>
-                    <li><a href="#achievements">Achievements</a></li>
-                    <li><a href="#skills">Skills</a></li>
                 </ul>
             </nav>
         </header>
@@ -289,7 +309,10 @@ $assets = config('Pages');
         <div class="project_experiences_wrapper_container">
             <?php foreach ($projects as $project): ?>
                 <div class="project">
-                    <h2><?= $project['title'] ?></h2>
+                    <h2>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <?= $project['title'] ?>
+                    </h2>
                     <p><?= $project['description'] ?></p>
 
 
@@ -407,8 +430,51 @@ $assets = config('Pages');
                     </div>
 
 
+                    <svg class="separator m-auto my-10" width="100" viewBox="0 0 687 155"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <g stroke="currentColor" stroke-width="7" fill="none" fill-rule="evenodd" stroke-linecap="round"
+                           stroke-linejoin="round">
+                            <path d="M20 58c27-13.33333333 54-20 81-20 40.5 0 40.5 20 81 20s40.626917-20 81-20 40.123083 20 80.5 20 40.5-20 81-20 40.5 20 81 20 40.626917-20 81-20c26.915389 0 53.748722 6.66666667 80.5 20"
+                                  opacity=".1"></path>
+                            <path d="M20 78c27-13.3333333 54-20 81-20 40.5 0 40.5 20 81 20s40.626917-20 81-20 40.123083 20 80.5 20 40.5-20 81-20 40.5 20 81 20 40.626917-20 81-20c26.915389 0 53.748722 6.6666667 80.5 20"
+                                  opacity=".2"></path>
+                            <path d="M20 98c27-13.3333333 54-20 81-20 40.5 0 40.5 20 81 20s40.626917-20 81-20 40.123083 20 80.5 20 40.5-20 81-20 40.5 20 81 20 40.626917-20 81-20c26.915389 0 53.748722 6.6666667 80.5 20"
+                                  opacity=".6"></path>
+                            <path d="M20 118c27-13.3333333 54-20 81-20 40.5 0 40.5 20 81 20s40.626917-20 81-20 40.123083 20 80.5 20 40.5-20 81-20 40.5 20 81 20 40.626917-20 81-20c26.915389 0 53.748722 6.6666667 80.5 20"></path>
+                        </g>
+                    </svg>
+
+
+                    <div class="repo-live-documentation-link">
+                        <?php if (!empty($project['repository_link'])): ?>
+                            <div class="repo-link-container">
+                                <h5>Repository Link</h5>
+                                <a href="<?= $project['repository_link'] ?>" target="_blank"><?= $project['repository_link'] ?></a>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if (!empty($project['live_demo_link'])): ?>
+                            <div class="live-link">
+                                <h5>Live Demo Link</h5>
+                                <a href="<?= $project['live_demo_link'] ?>" target="_blank"><?= $project['live_demo_link'] ?></a>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if (!empty($project['documentation_link'])): ?>
+                            <div class="documentation-link">
+                                <h5>Documentation Link</h5>
+                                <a href="<?= $project['documentation_link'] ?>" target="_blank"><?= $project['documentation_link'] ?></a>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+
                 </div>
+
+
                 <hr>
+
+
+
             <?php endforeach; ?>
         </div>
     </div>
