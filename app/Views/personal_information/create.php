@@ -35,30 +35,32 @@
                 </div>
                 <div class="form-group mt-2" style="display: flex; gap: 50px;">
                     <div style="display: flex;flex-direction: column; gap: 10px;">
-                    <label for="profile_image_path">Profile Image</label>
-                    <input type="file" id="profile_image_path" name="profile_image_path" class="file"
-                           data-show-upload="false" data-show-caption="true">
-                </div>
+                        <label for="profile_image_path">Profile Image</label>
+                        <input type="file" id="profile_image_path" name="profile_image_path" class="file"
+                               data-show-upload="false" data-show-caption="true">
+                    </div>
 
                     <hr>
-                <?php if (isset($personalInformation) && $personalInformation['profile_image_path']): ?>
+                    <?php if (isset($personalInformation) && $personalInformation['profile_image_path']): ?>
 
-                    <div style="display: flex;flex-direction: column;gap: 10px;">
-                        <label for="existing">Recent Profile Image</label>
+                        <div style="display: flex;flex-direction: column;gap: 10px;">
+                            <label for="existing">Recent Profile Image</label>
 
-                        <img src="<?= base_url('uploads/profile_information/' . $personalInformation['profile_image_path']) ?>"
-                             alt="Profile Image" style="max-width: 200px; margin-top: 10px; border-radius: 50%; width: 250px;height: 200px;">
+                            <img src="<?= base_url('uploads/profile_information/' . $personalInformation['profile_image_path']) ?>"
+                                 alt="Profile Image"
+                                 style="max-width: 200px; margin-top: 10px; border-radius: 50%; width: 250px;height: 200px;">
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <div class="form-group mt-2" style="display: flex; justify-content: end;gap: 10px;">
+                    <div>
+                        <a href="<?= base_url('personal-information') ?>" class="btn btn-secondary mt-3">Cancel</a>
+                        <button type="submit"
+                                class="btn btn-primary mt-3"><?= isset($personalInformation) ? 'Update' : 'Create' ?></button>
                     </div>
-                <?php endif; ?>
+                </div>
+            </form>
         </div>
-        <div class="form-group mt-2" style="display: flex; justify-content: end;gap: 10px;">
-            <div>
-                <a href="<?= base_url('personal-information') ?>" class="btn btn-secondary mt-3">Cancel</a>
-                <button type="submit" class="btn btn-primary mt-3"><?= isset($personalInformation) ? 'Update' : 'Create' ?></button>
-            </div>
-        </div>
-        </form>
-    </div>
     </div>
 
 
@@ -71,6 +73,15 @@
                 'initialPreviewAsData': true,
             });
         });
+
+        <?php if (session()->getFlashdata('message')): ?>
+        Swal.fire({
+            title: '<?= session()->getFlashdata('message') ?>',
+            icon: '<?= session()->getFlashdata('alert-class') ?>',
+            confirmButtonText: 'OK',
+            confirmButtonColor: "#343A40",
+        });
+        <?php endif; ?>
     </script>
 
 <?= $this->endSection() ?>

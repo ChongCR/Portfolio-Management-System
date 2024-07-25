@@ -33,6 +33,10 @@ class PreviewController extends BaseController
             $project['references'] = $projectReferences;
         }
 
-        return view('preview/index', ['announcement' => $activeAnnouncement, 'projects' => $projects]);
+        // Fetch personal information
+        $personalInformationModel = new \App\Models\PersonalInformation();
+        $personalInformation = $personalInformationModel->first();
+
+        return view('preview/index', ['announcement' => $activeAnnouncement, 'projects' => $projects, 'personalInformation' => $personalInformation]);
     }
 }

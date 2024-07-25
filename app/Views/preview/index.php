@@ -282,17 +282,16 @@ $assets = config('Pages');
         <div class="about_us_wrapper_container">
             <div class="about_us_wrapper_container_personal">
                 <div>
-                    <img src="<?= base_url('assets/images/preview/rock_image.png') ?>" alt="Rock">
+                    <img src="<?= isset($personalInformation) ? base_url('uploads/profile_information/' . $personalInformation['profile_image_path']) : base_url('assets/images/preview/placeholder.png') ?>" alt="Profile Image">
                 </div>
                 <div class="about_us_wrapper_container_personal_information">
                     <div>
-                        <h5><?= lang('preview.intro') ?></h5>
+                        <h5>Hi, I am <?= isset($personalInformation) ? $personalInformation['name'] : 'Placeholder Name' ?></h5>
                     </div>
                     <div>
-                        <span><?= lang('preview.description') ?></span>
+                        <span><?= isset($personalInformation) ? $personalInformation['description'] : 'Placeholder Description' ?></span>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

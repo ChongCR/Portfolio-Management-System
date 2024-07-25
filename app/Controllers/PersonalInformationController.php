@@ -64,7 +64,13 @@ class PersonalInformationController extends BaseController
 
         $personalInformationModel->emptyTable();
 
-        $personalInformationModel->save($postData);
+        if ($personalInformationModel->save($postData)) {
+            session()->setFlashdata('message', 'Personal Information Updated Successfully');
+            session()->setFlashdata('alert-class', 'success');
+        } else {
+            session()->setFlashdata('message', 'Update failed');
+            session()->setFlashdata('alert-class', 'danger');
+        }
 
         // Add activity log
         $activityLogger = new \App\Models\ActivityLogger();
